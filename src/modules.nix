@@ -17,10 +17,9 @@
 
   globalDefaults = { hmUsers }:
     { config, pkgs, self, ... }: {
-      # digga lib can be accessed in modules directly as config.lib.digga
-      lib = {
-        inherit (pkgs.lib) digga;
-      };
+      # Digga's library functions can be accessed within modules directly via
+      # `config.lib.digga`.
+      lib = {inherit (pkgs.lib) digga;};
 
       _module.args = {
         inherit hmUsers;
@@ -35,6 +34,14 @@
     users.mutableUsers = lib.mkDefault false;
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     system.configurationRevision = lib.mkIf (self ? rev) self.rev;
+  };
+
+  nixDarwinCompat = { config, options, lib, ... }: {
+    # TODO: remove when merged: https://github.com/LnL7/nix-darwin/pull/429
+    options.lib = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+    };
   };
 
 }

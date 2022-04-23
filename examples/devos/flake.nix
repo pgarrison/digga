@@ -31,8 +31,7 @@
       home.url = "github:nix-community/home-manager/release-21.11";
       home.inputs.nixpkgs.follows = "nixos";
 
-      # TODO: update url once https://github.com/LnL7/nix-darwin/pull/429 is merged
-      darwin.url = "github:montchr/nix-darwin/add-toplevel-option-lib";
+      darwin.url = "github:LnL7/nix-darwin";
       darwin.inputs.nixpkgs.follows = "nixos";
 
       deploy.url = "github:serokell/deploy-rs";

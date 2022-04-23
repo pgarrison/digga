@@ -67,9 +67,9 @@ let
       # add `self` & `inputs` as specialArgs so their libs can be used in imports
       specialArgs = config.nixos.importables // { inherit (config) self inputs; };
 
-      modules = config.nixos.hostDefaults.exportedModules ++ defaultHostModules ++ [
-        internal-modules.nixosDefaults
-      ];
+      modules = config.nixos.hostDefaults.exportedModules
+        ++ defaultHostModules
+        ++ [internal-modules.nixosDefaults];
     }
     (stripNull config.nixos.hostDefaults);
   nixosHosts = lib.mapAttrs
@@ -89,7 +89,9 @@ let
 
       # add `self` & `inputs` as specialArgs so their libs can be used in imports
       specialArgs = config.darwin.importables // { inherit (config) self inputs; };
-      modules = config.darwin.hostDefaults.exportedModules ++ defaultHostModules;
+      modules = config.darwin.hostDefaults.exportedModules
+        ++ defaultHostModules
+        ++ [internal-modules.nixDarwinCompat];
     }
     (stripNull config.darwin.hostDefaults);
   darwinHosts = lib.mapAttrs
