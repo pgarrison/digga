@@ -16,7 +16,7 @@
       # But, perhaps even more usefully, it provides a place for adding
       # darwin-specific overlays and packages which could otherwise cause build
       # failures on Linux systems.
-      nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+      nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
 
       digga.url = "github:divnix/digga/darwin-support";
       digga.inputs.nixpkgs.follows = "nixos";
@@ -32,7 +32,7 @@
       home.inputs.nixpkgs.follows = "nixos";
 
       darwin.url = "github:LnL7/nix-darwin";
-      darwin.inputs.nixpkgs.follows = "nixos";
+      darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
 
       deploy.url = "github:serokell/deploy-rs";
       deploy.inputs.nixpkgs.follows = "nixos";
@@ -76,7 +76,7 @@
             imports = [ (digga.lib.importOverlays ./overlays) ];
             overlays = [ ];
           };
-          nixpkgs-darwin = {
+          nixpkgs-darwin-stable = {
             imports = [ (digga.lib.importOverlays ./overlays) ];
             overlays = [ ];
           };
@@ -133,7 +133,7 @@
         darwin = {
           hostDefaults = {
             system = "x86_64-darwin";
-            channelName = "nixpkgs-darwin";
+            channelName = "nixpkgs-darwin-stable";
             imports = [ (digga.lib.importExportableModules ./modules) ];
             modules = [
               { lib.our = self.lib; }
